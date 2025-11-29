@@ -11,26 +11,45 @@ import {
   Youtube,
   Send,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function ContactSection() {
- const handleWhatsAppSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    message: "",
+  });
 
-  const form = e.currentTarget;
-  const name = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
-  const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
-  const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  // CRITICAL: Use encodeURIComponent() for the entire message
-  const text = encodeURIComponent(
-    `Hello Indian spices house! 🌶️\n\n👤 Name: ${name}\n📱 Phone: ${phone}\n💬 Message: ${message}\n\nThank you!`
-  );
+  const handleWhatsAppSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const whatsappNumber = "+919539769967"; // Your number (with country code, no +)
+    const form = e.currentTarget;
+    const name = (
+      form.elements.namedItem("name") as HTMLInputElement
+    ).value.trim();
+    const phone = (
+      form.elements.namedItem("phone") as HTMLInputElement
+    ).value.trim();
+    const message = (
+      form.elements.namedItem("message") as HTMLTextAreaElement
+    ).value.trim();
 
-  // This will now work perfectly
-  window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
-};
+    // CRITICAL: Use encodeURIComponent() for the entire message
+    const text = encodeURIComponent(
+      `Hello Indian spices house! \n\n Name: ${name}\n Phone: ${phone}\n Message: ${message}\n\nThank you!`
+    );
+
+    const whatsappNumber = "+919539769967"; // Your number (with country code, no +)
+
+    // This will now work perfectly
+    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
+  };
 
   return (
     <section id="contact" className="py-20   bg-amber-50">
@@ -51,7 +70,7 @@ export default function ContactSection() {
           <div className="order-2 md:order-1">
             <form
               onSubmit={handleWhatsAppSubmit}
-              className="space-y-6 bg-white p-8 rounded-2xl  border border-amber-100"
+              className="space-y-6 bg-white p-8 rounded-2xl border border-amber-100"
             >
               <div>
                 <label className="block text-amber-900 font-semibold mb-2">
@@ -63,6 +82,7 @@ export default function ContactSection() {
                   required
                   className="w-full text-black px-5 py-2 border-2 border-amber-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
                   placeholder="John Doe"
+                  onChange={handleChange} // 👈 added
                 />
               </div>
 
@@ -76,6 +96,7 @@ export default function ContactSection() {
                   required
                   className="w-full text-black px-5 py-2 border-2 border-amber-200 rounded-xl focus:border-amber-600 focus:outline-none transition"
                   placeholder="+91 98765 43210"
+                  onChange={handleChange} // 👈 added
                 />
               </div>
 
@@ -89,12 +110,13 @@ export default function ContactSection() {
                   required
                   className="w-full text-black px-5 py-2 border-2 border-amber-200 rounded-xl focus:border-amber-600 focus:outline-none transition resize-none"
                   placeholder="I'm interested in your Kashmiri Chilli Powder..."
+                  onChange={handleChange} // 👈 added
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full text-sm text-white bg-gradient-to-r bg-[#719a4b] font-bold py-5 rounded-xl hover:bg-[#74a843] transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg"
+                className="w-full text-sm text-white bg-[#719a4b] font-bold py-5 rounded-xl hover:bg-[#74a843] transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg"
               >
                 <Send size={20} />
                 Send Message via WhatsApp
@@ -147,23 +169,23 @@ export default function ContactSection() {
           </div>
         </div>
         {/* Contact Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-              <div className="bg-amber-100 p-5 rounded-xl text-center">
-                <Phone className="mx-auto mb-2 text-amber-700" size={28} />
-                <p className="text-sm font-bold text-amber-900">Call Us</p>
-                <p className="text-xs text-amber-700">+91 95397 69967</p>
-              </div>
-              <div className="bg-amber-100 p-5 rounded-xl text-center">
-                <Mail className="mx-auto mb-2 text-amber-700" size={28} />
-                <p className="text-sm font-bold text-amber-900">Email</p>
-                <p className="text-xs text-amber-700">info@indianspiceshouse.in</p>
-              </div>
-              <div className="bg-amber-100 p-5 rounded-xl text-center">
-                <MapPin className="mx-auto mb-2 text-amber-700" size={28} />
-                <p className="text-sm font-bold text-amber-900">Location</p>
-                <p className="text-xs text-amber-700">Kerala, India</p>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+          <div className="bg-amber-100 p-5 rounded-xl text-center">
+            <Phone className="mx-auto mb-2 text-amber-700" size={28} />
+            <p className="text-sm font-bold text-amber-900">Call Us</p>
+            <p className="text-xs text-amber-700">+91 95397 69967</p>
+          </div>
+          <div className="bg-amber-100 p-5 rounded-xl text-center">
+            <Mail className="mx-auto mb-2 text-amber-700" size={28} />
+            <p className="text-sm font-bold text-amber-900">Email</p>
+            <p className="text-xs text-amber-700">info@indianspiceshouse.in</p>
+          </div>
+          <div className="bg-amber-100 p-5 rounded-xl text-center">
+            <MapPin className="mx-auto mb-2 text-amber-700" size={28} />
+            <p className="text-sm font-bold text-amber-900">Location</p>
+            <p className="text-xs text-amber-700">Kerala, India</p>
+          </div>
+        </div>
       </div>
     </section>
   );

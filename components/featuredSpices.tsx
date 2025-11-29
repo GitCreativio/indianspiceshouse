@@ -55,7 +55,7 @@ export default function PremiumHeroSections() {
             </div>
 
             <div className="flex justify-center md:justify-start gap-8 text-sm text-yellow-500 pt-8">
-              <span>100% Organic</span>
+              <span>Organic</span>
               <span>No Additives</span>
               <span>Lab Tested</span>
             </div>
