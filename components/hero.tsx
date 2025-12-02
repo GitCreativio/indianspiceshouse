@@ -16,7 +16,7 @@ export default function Hero() {
       <div className="relative z-10  max-w-6xl ">
         {/* Hero Statement – Powerful color progression */}
         <div className="opacity-0 animate-fadeInUp animation-delay-600">
-          <h2 className="text-6xl font-sans  md:text-8xl  font-bold leading-tight">
+          <h2 className="text-6xl font-sans  md:text-8xl 2xl:text-9xl  font-bold leading-tight">
             <span className=" text-amber-100 block md:inline mr-2">Pure.</span>
             <span className=" text-amber-100  tracking-tight">Aromatic.</span>
             <span className=" block text-amber-100 drop-shadow-2xl">
